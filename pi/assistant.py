@@ -97,16 +97,16 @@ def process_event(event):
     """
     if event.type == EventType.ON_CONVERSATION_TURN_STARTED:
         os.system("aplay start.wav")
-        pubnub.publish().channel("magicmirror").message("ON_CONVERSATION_TURN_STARTED").async(my_publish_callback)
+        pubnub.publish().channel("magicmirror").message("ON_CONVERSATION_TURN_STARTED").pn_async(my_publish_callback)
         print()
         #GPIO.output(25,True)
     if (event.type == EventType.ON_CONVERSATION_TURN_FINISHED and
             event.args and not event.args['with_follow_on_turn']):
-        pubnub.publish().channel("magicmirror").message("ON_CONVERSATION_TURN_FINISHED").async(my_publish_callback)
+        pubnub.publish().channel("magicmirror").message("ON_CONVERSATION_TURN_FINISHED").pn_async(my_publish_callback)
         print()
         #GPIO.output(25,False)
     if event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED:
-        pubnub.publish().channel("magicmirror").message("ON_RECOGNIZING_SPEECH_FINISHED : "+event.args['text']).async(my_publish_callback)
+        pubnub.publish().channel("magicmirror").message("ON_RECOGNIZING_SPEECH_FINISHED : "+event.args['text']).pn_async(my_publish_callback)
         print()
 
 def init_googleAssistant():
